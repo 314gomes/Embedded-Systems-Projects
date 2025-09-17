@@ -1,0 +1,102 @@
+    1  sudo passwd root
+    2  reboot
+    3  sudo raspi-config
+    4  sudo apt install neofetch
+    5  neofetch
+    6  sudo shutdown -h now
+    7  ipconfig
+    8  ifconfig
+    9  shutdown
+   10  sudo shutdown
+   11  shutdown -c
+   12  sudo shutdown now
+   13  ls
+   14  ls /mnt/
+   15  ls /media/sel/Kingston/
+   16  ls /media/sel/Kingston/Projetos\ em\ sistemas\ embarcados/Prática\ 2/
+   17  mkdir workjj
+   18  ls /media/sel/Kingston/Projetos\ em\ sistemas\ embarcados/Prática\ 2/
+   19  cp /media/sel/Kingston/Projetos\ em\ sistemas\ embarcados/Prática\ 2 ./workjj/
+   20  cp  -rf/media/sel/Kingston/Projetos\ em\ sistemas\ embarcados/Prática\ 2 ./workjj/
+   21  cp  -r media/sel/Kingston/Projetos\ em\ sistemas\ embarcados/Prática\ 2 ./workjj/
+   22  cp  -r  /media/sel/Kingston/Projetos\ em\ sistemas\ embarcados/Prática\ 2 ./workjj/
+   23  ls
+   24  cd workjj/
+   25  ls
+   26  rm
+   27  ls
+   28  cd Prática\ 2/
+   29  ls
+   30  locale
+   31  gpio
+   32  pinout
+   33  python3 contador_regressivo.py 
+   34  nano 
+   35  python3 contador_regressivo.py 
+   36  nano
+   37  pinout
+   38  nano
+   39  python3 contador_regressivo.py 
+   40  pinout
+   41  nano contador_regressivo.py 
+   42  python3 contador_regressivo.py 
+   43  nano contador_regressivo.py 
+   44  python3 contador_regressivo.py 
+   45  nano contador_regressivo.py 
+   46  python3 contador_regressivo.py 
+   47  nano contador_regressivo.py 
+   48  python3 contador_regressivo.py 
+   49  nano contador_regressivo.py 
+   50  python3 contador_regressivo.py 
+   51  nano contador_regressivo.py 
+   52  python3 contador_regressivo.py 
+   53  nano contador_regressivo.py 
+   54  python3 contador_regressivo.py 
+   55  nano contador_regressivo.py 
+   56  python3 contador_regressivo.py 
+   57  nano contador_regressivo.py 
+   58  python3 contador_regressivo.py 
+   59  nano contador_regressivo.py 
+   60  python3 contador_regressivo.py 
+   61  nano contador_regressivo.py 
+   62  python3 contador_regressivo.py 
+   63  > sudo rpi-update cac01bed1224743104cb2a4103605f269f207b1a
+   64  sudo rpi-update cac01bed1224743104cb2a4103605f269f207b1a
+   65  y
+   66  reboot
+   67  sudo reboot now
+   68  cd workjj
+   69  ls
+   70  cd Prática\ 2/
+   71  ls
+   72  python3 botao_ativador
+   73  nano botao_ativador
+   74  nano botao_ativador.py
+   75  pinout
+   76  nano botao_ativador.py
+   77  python3 botao_ativador
+   78  python3 botao_ativador.py
+   79  nano botao_ativador.py
+   80  python3 botao_ativador.py
+   81  nano botao_ativador.py
+   82  python3 botao_ativador.py
+   83  nano contador_regressivo.py 
+   84  nano 
+   85  nano contador_regressivo2.py
+   86  python3 botao_ativador.py
+   87  ls
+   88  touch pwm.py
+   89  nano pwm.py 
+   90  pinout
+   91  nano pwm.py 
+   92  python pwm.py 
+   93  nano pwm.py 
+   94  python pwm.py 
+   95  nano pwm.py 
+   96  python pwm.py 
+   97  nano pwm.py 
+   98  python pwm.py 
+   99  nano pwm.py 
+  100  python pwm.py 
+  101  cp * /media/sel/Kingston/Projetos\ em\ sistemas\ embarcados/Prática\ 2/
+  102  history > historico_comandos.txt
