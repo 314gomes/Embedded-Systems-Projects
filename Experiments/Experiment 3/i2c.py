@@ -15,6 +15,7 @@ while flag:
 	elif leitura == "0":
 		bus.write_byte(addr, 0x0) # ou escreve 0x0, caso 0
 	elif leitura == "r":
+		# fazer leitura da interface I2C e imprimir assumindo que é uma leitura do ADC de 10 bits de um Arduino Uno
 		data = bus.read_i2c_block_data(0x8, 0, 2)
 		print("lido do arduino: {}".format(data))
 		valor_lido = (data[0] << 8) + data[1]

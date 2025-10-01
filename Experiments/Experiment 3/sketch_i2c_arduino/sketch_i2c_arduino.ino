@@ -8,8 +8,10 @@
 
 const int ledPin = LED_BUILTIN;
 
+// evento para quando leitura for requisitada pelo barramento I2C
 void requestEvent () {
   Serial.print("Requisitado!!");
+  // ler do pino analógico e escrever no serial UART e barramento I2C
   int n = analogRead(A0);
   Wire.write(highByte(n));
   Wire.write(lowByte(n));
@@ -30,7 +32,6 @@ void setup()
 }
 
 
-
 // Definição da Função receiveEvent executada sempre que dados são recebidos do controlador (Raspberry Pi)
 void receiveEvent(int howMany) 
 {
@@ -40,21 +41,9 @@ void receiveEvent(int howMany)
     digitalWrite(ledPin, c); // define o estado do LED com base no valor de “c”
   }
 }
+
+
 void loop() 
 { // aguarda 100 ms antes de continuar a execução em loop
 delay(100);
 }
-
-// void setup () {
-// o parâmetro <Serial.begin(9600)> define a taxa de comunicação serial - 9600 bits por segundo, no caso
-//a função < Wire.onRequest(requestEvents)> é chamada quando o Arduino receber solicitações da Rasp
-// }
-
-// void requestEvent () {
-// a função: <analogRead(analog_pin)> realiza leitura do pino analogico que se deseja receber dados
-// <Wire.write(highByte(n)); > e < Wire.write(lowByte(n));> são funções usadas na chamada da função de envio de bytes pelo I2C por highByte e lowByte
-// }
-// void receiveEvent(int number) {
-// sem alterações
-//}
-// Lembrar sempre de, ao longo dos blocos, imprimir na tela os valores com < Serial.println>
