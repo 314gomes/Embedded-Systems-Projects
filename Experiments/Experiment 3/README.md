@@ -12,6 +12,7 @@ Esta pasta contém os códigos desenvolvidos para as duas partes do Experimento 
   - **output_i2c.txt**: Registro dos comandos utilizados durante o desenvolvimento e testes da parte 1.
   
   - Abaixo está visível uma foto de montagem envolvida na parte 1:
+
 ![Foto da montagem do botão e LED](imagens/part1.jpeg)
 
 
@@ -21,6 +22,7 @@ Esta pasta contém os códigos desenvolvidos para as duas partes do Experimento 
     - Ao digitar um cartão **não** cadastrado, um LED vermelho se acende (enquanto o LED verde fica apagado).
   
   - Abaixo está visível um vídeo demonstrando o que foi desenvolvido na parte 2.
+
 ![Foto da montagem do botão e LED](imagens/part2.gif)
 
 
