@@ -1,0 +1,9 @@
+[Unit]
+Description= Inicia programa para leitura de cartao e controle de LEDs
+After=multi-user.target
+[Service]
+ExecStart=/usr/bin/python /home/sel/workjj/pratica3/spi.py
+ExecStop=/home/sel/workjj/pratica4/turn_off_led.sh
+user=sel
+[Install]
+WantedBy=multi-user.target

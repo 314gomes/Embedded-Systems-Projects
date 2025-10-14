@@ -1,0 +1,12 @@
+● blink_sh.service - Blink LED
+     Loaded: loaded (/lib/systemd/system/blink_sh.service; disabled; preset: enabled)
+     Active: active (running) since Wed 2025-10-01 19:55:21 BST; 2min 10s ago
+   Main PID: 2021 (blink.sh)
+      Tasks: 2 (limit: 757)
+        CPU: 5.495s
+     CGroup: /system.slice/blink_sh.service
+             ├─2021 /bin/bash /home/sel/workjj/pratica4/blink.sh
+             └─2680 sleep 0.2s
+
+Oct 01 19:55:21 raspberrypi systemd[1]: Started blink_sh.service - Blink LED.
+Oct 01 19:55:21 raspberrypi blink.sh[2021]: /home/sel/workjj/pratica4/blink.sh: line 3: echo: write error: Device or resource busy
