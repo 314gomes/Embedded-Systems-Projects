@@ -4,32 +4,38 @@
 #include "freertos/task.h"
 #include "freertos/semphr.h" 
 
+// Pin definitions for RGB LED
 int rpin = 13;
 int gpin = 14;
 int bpin = 12;
 
+// Global variable for the timer countdown and its mutex
 int remaining = 800;
 SemaphoreHandle_t remainingMutex; 
 
+// Sets the RGB LED color
 void setColor(int R, int G, int B) {
     analogWrite(rpin, R);
     analogWrite(gpin, G);
     analogWrite(bpin, B);
 }
 
+// Task to decrement the timer and update the LED color based on the remaining time
 void vtasktimer(void *pvParameters) {
     while (1) {
         int currentRemaining = 0; 
 
+        // Protect access to 'remaining' with a mutex
         if (xSemaphoreTake(remainingMutex, portMAX_DELAY) == pdTRUE) {
             remaining--;
             if (remaining < 0) {
                 remaining = 0;
             }
-            currentRemaining = remaining; // Make a local copy
-            xSemaphoreGive(remainingMutex); // Release the mutex
+            currentRemaining = remaining; 
+            xSemaphoreGive(remainingMutex); 
         }
 
+        // Color fading logic based on 'currentRemaining'
         if (currentRemaining >= 765) {
             setColor(255, 255, 255);
         } else if (currentRemaining >= 510) {
@@ -53,41 +59,43 @@ void vtaskinterface(void *pvParameters) {
             
             int newValue = Serial.parseInt();
 
+            // Clear any remaining characters in the serial buffer
             while(Serial.available()) {
                 Serial.read();
             }
 
+            // Update 'remaining' with mutex protection
             if (xSemaphoreTake(remainingMutex, portMAX_DELAY) == pdTRUE) {
                 remaining = newValue;
-                xSemaphoreGive(remainingMutex); // Release the mutex
+                xSemaphoreGive(remainingMutex); 
             }
 
             Serial.print("Timer set to: ");
             Serial.println(newValue);
         }
 
-        vTaskDelay(pdMS_TO_TICKS(50)); // Check for serial data every 50ms
+        vTaskDelay(pdMS_TO_TICKS(50)); 
     }
 }
 
 TaskHandle_t handletasktimer;
 
 void setup() {
-    Serial.begin(115200); // <-- Must initialize Serial
+    Serial.begin(115200); 
     pinMode(rpin, OUTPUT);
     pinMode(gpin, OUTPUT);
     pinMode(bpin, OUTPUT);
 
-    // Create the mutex *before* starting the tasks that use it
+    // Create the mutex before starting the tasks that use it
     remainingMutex = xSemaphoreCreateMutex();
 
-    // Create the Timer task
+    // Create the Timer task with higher priority for smooth fading
     xTaskCreatePinnedToCore(
         vtasktimer,
         "TIMER",
         configMINIMAL_STACK_SIZE + 1024,
         NULL,
-        2, // Higher priority for smooth fading
+        2, 
         &handletasktimer,
         1);
 
@@ -103,5 +111,6 @@ void setup() {
 }
 
 void loop() {
+    // The main loop is mostly idle as FreeRTOS tasks handle the functionality
     vTaskDelay(pdMS_TO_TICKS(3000));
 }
