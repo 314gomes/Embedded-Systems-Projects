@@ -13,7 +13,7 @@ Este relatório descreve um projeto de atualização remota de firmware (OTA) pa
 
 ## Materiais
 
-- Placa de desenvolvimento com ESP32 (ex.: ESP32 Dev Module).
+- Placa de desenvolvimento com ESP32 (ex.: ESP32 Dev Kit).
 - Cabo micro-USB para programação e alimentação.
 - Rede Wi‑Fi disponível para conectar o ESP32 e a máquina que acessará o web updater.
 - IDE Platformio.
