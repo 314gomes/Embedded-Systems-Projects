@@ -21,7 +21,7 @@ Este relatório descreve um projeto de atualização remota de firmware (OTA) pa
 ## Metodologia
 
 1. Preparar dois firmwares:
-   - [Firmware A (antes da atualização)](<No%20Blink/src/main.cpp>): implementa o servidor web para OTA e gerencia as requisições na função `loop` principal.
+   - [Firmware A (antes da atualização)](<Final Project/With Blink/src/main.cpp>): implementa o servidor web para OTA e gerencia as requisições na função `loop` principal.
    - [Firmware B (depois da atualização)](<With%20Blink/src/main.cpp>): conteúdo similar, mas introduz uma tarefa FreeRTOS para fazer o LED onboard piscar e outra para lidar com o servidor web, servindo como comprovação visual e funcional da atualização.
 2. Rodar o Firmware A no ESP32; acessar o endereço IP exibido no Serial Monitor.
 3. Autenticar-se na página (credenciais padrão: admin / admin).
