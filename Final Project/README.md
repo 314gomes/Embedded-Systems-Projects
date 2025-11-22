@@ -70,3 +70,10 @@ O web updater é uma solução prática para atualizações OTA em redes locais.
 
 - Códigos do projeto: ver caminhos indicados na seção "Localização dos códigos-fonte".
 - Documentação ESP32 Arduino: https://docs.espressif.com/projects/arduino-esp32/en/latest/
+
+## Autores
+
+| Nome                        | NUSP     |
+|-----------------------------|----------|
+| João Pedro Gomes            | 13839069 |
+| Giulliano Olivato da Silva  | 9944204  |
