@@ -1,84 +1,120 @@
-# Relatório — Atualização OTA via Web Updater em ESP32
+# Atualização OTA via Web Updater em ESP32 com FreeRTOS
 
-## Resumo:
+## Introdução
 
-Este relatório descreve um projeto de atualização remota de firmware (OTA) para ESP32 usando um web updater hospedado no próprio dispositivo. Foram empregados conceitos de sistemas operacionais de tempo real (RTOS) para gerenciar tarefas concorrentes. O foco é demonstrar a arquitetura, a implementação e os resultados experimentais, com ênfase na prática de atualização de firmware por navegador — útil em aplicações de IoT e Indústria 4.0.
+### Motivação e Problemática
 
-## Objetivos
+Em projetos de Internet das Coisas (IoT) e Indústria 4.0, dispositivos embarcados frequentemente necessitam de atualizações de firmware para corrigir bugs, adicionar novas funcionalidades ou aplicar patches de segurança. Realizar essa atualização manualmente, conectando um cabo a cada dispositivo, pode ser um processo inviável, custoso e, frequentemente, impossível, especialmente para equipamentos instalados em locais de difícil acesso.
 
-- Implementar um servidor web no ESP32 que permita upload de binário para atualização OTA.
-- Demonstrar o fluxo de autenticação simples (login/senha) e o processo de gravação do firmware recebido.
-- Comparar dois firmwares: antes e depois da atualização (identificação via mensagens no Serial).
-- Integrar uma tarefa de blink com FreeRTOS (versão com blink) para separar responsabilidades, demonstrando a aplicação de RTOS.
+### Solução Adotada
 
-## Materiais
+Este projeto apresenta uma solução prática e eficiente para este problema: um mecanismo de atualização **Over-the-Air (OTA)** implementado em um ESP32. A solução consiste em um servidor web hospedado no próprio dispositivo, que permite o envio de um novo firmware através de um navegador em qualquer máquina conectada à mesma rede Wi-Fi.
 
-- Placa de desenvolvimento com ESP32 (ex.: ESP32 Dev Kit).
-- Cabo micro-USB para programação e alimentação.
-- Rede Wi‑Fi disponível para conectar o ESP32 e a máquina que acessará o web updater.
-- IDE Platformio.
+Para demonstrar uma arquitetura robusta e comum em sistemas embarcados complexos, o firmware atualizado utiliza o sistema operacional de tempo real **FreeRTOS** para gerenciar tarefas concorrentes, como o próprio servidor web e uma tarefa secundária de piscar um LED, garantindo que a interface de rede permaneça responsiva sem interromper outras funcionalidades do sistema.
 
-## Metodologia
+## Ferramentas, Bibliotecas e Materiais
 
-1. Preparar dois firmwares:
-   - [Firmware A (antes da atualização)](<No%20blink/src/main.cpp>): implementa o servidor web para OTA e gerencia as requisições na função `loop` principal.
-   - [Firmware B (depois da atualização)](<With%20Blink/src/main.cpp>): conteúdo similar, mas introduz uma tarefa FreeRTOS para fazer o LED onboard piscar e outra para lidar com o servidor web, servindo como comprovação visual e funcional da atualização.
-2. Rodar o Firmware A no ESP32; acessar o endereço IP exibido no Serial Monitor.
-3. Autenticar-se na página (credenciais padrão: admin / admin).
-4. Fazer upload do binário compilado do Firmware B via formulário HTML e aguardar o processo de gravação.
-5. Após gravação, o ESP32 reinicia e passa a executar o Firmware B.
+### Materiais Utilizados (Hardware)
 
-## Sumário da Implementação
+- Placa de desenvolvimento com ESP32 (ex: ESP32 Dev Kit).
+- Cabo micro-USB para programação inicial e alimentação.
 
-- Servidor web baseado em WebServer (porta 80), com páginas HTML embutidas para login e upload.
-- Endpoint POST `/update` que recebe o arquivo multipart, grava com a API Update e reinicia o dispositivo se bem sucedido.
-- Uso de mDNS (host: `esp32`) para facilitar acesso via `http://esp32.local` quando disponível.
-- Versão com blink: a tarefa de piscar o LED foi separada em uma tarefa FreeRTOS, enquanto outra tarefa processa o servidor, garantindo responsividade e demonstrando os benefícios do uso de RTOS.
+### Ferramentas e Bibliotecas (Software)
 
-## Localização dos códigos-fonte
+- IDE: PlatformIO com Visual Studio Code.
+- Framework: Arduino para ESP32.
+- Bibliotecas Principais:
+  - `WiFi.h`: Para conectividade com a rede Wi-Fi.
+  - `WebServer.h`: Para a criação do servidor HTTP que hospeda a interface de atualização.
+  - `ESPmDNS.h`: Para resolução de nome local (`http://<ip do microcontrolador>`), facilitando o acesso ao dispositivo.
+  - `Update.h`: API nativa do ESP32 para realizar o processo de gravação do novo firmware na memória flash.
+  - FreeRTOS: Sistema operacional de tempo real (integrado ao core do ESP32 para Arduino) utilizado para gerenciamento de tarefas concorrentes.
 
-- Firmware com blink (FreeRTOS tasks): file:///home/gomes/Documents/embarcados/Embedded-Systems-Projects/Final Project/With Blink/src/main.cpp
-- Firmware sem blink: file:///home/gomes/Documents/embarcados/Embedded-Systems-Projects/Final Project/No blink/src/main.cpp
+## Esquema de Ligação
 
-## Instruções de uso resumidas
+Não são necessárias ligações externas ou componentes adicionais. O projeto utiliza apenas a placa de desenvolvimento ESP32 e seu LED onboard. A conexão USB é necessária apenas para a primeira gravação do firmware e para alimentar o dispositivo.
 
-1. Atualize as credenciais Wi‑Fi (`ssid` e `password`) nos arquivos indicados.
-2. Abra o projeto na Arduino IDE e selecione a placa ESP32 correta.
-3. Para gerar o binário a ser enviado via web updater:
-   - Menu Sketch → Export compiled Binary.
-   - O arquivo `.bin` gerado estará na mesma pasta do sketch.
-4. No dispositivo rodando o firmware inicial, abra o Serial Monitor (115200 baud) para obter o IP do ESP32.
-5. No navegador, acesse `http://<IP_DO_ESP32>` e efetue o login (admin/admin por padrão).
+## Desenvolvimento e Implementação
 
-   ![Tela de login](Images/login.png)
-   
-6. Na página de upload, selecione o `.bin` gerado e clique em Update. Aguarde o progresso até 100% e o reinício do ESP32.
-   ![Tela de upload](Images/upload_file.png)
+O projeto foi dividido em dois firmwares para demonstrar claramente o processo de atualização.
 
-   ![Fazendo upload](Images/uploading.gif)
+### Firmware A: Ponto de Partida (Sem Blink)
 
-## Boas práticas e observações
+O primeiro firmware é uma aplicação simples que estabelece o ponto de partida. Sua única responsabilidade é iniciar o servidor web e aguardar uma atualização.
 
-- Testar localmente em rede confiável antes de implantar em campo.
-- Considerar autenticação mais robusta e HTTPS para cenários de produção.
-- Verificar limites de tamanho do firmware e memória disponível; usar Update.begin com tamanho apropriado se conhecido.
-- Em aplicações críticas, manter fallback (partição dual) ou mecanismo de rollback.
+- Conectividade: Conecta-se à rede Wi-Fi pré-configurada.
+- Servidor Web: Inicia um servidor na porta 80 com os seguintes endpoints:
+  - `GET /`: Apresenta a página de login.
+  - `POST /login`: Valida as credenciais. Se corretas, redireciona para a página de upload.
+  - `POST /update`: Recebe o arquivo de firmware (`.bin`) e utiliza a API `Update` para gravá-lo na partição OTA.
+- Lógica: Toda a lógica do servidor é gerenciada dentro da função `loop()` principal do Arduino.
 
-## Resultados Esperados
+### Firmware B: Versão Atualizada (Com Blink e FreeRTOS)
 
-- Após o upload do Firmware B ser bem-sucedido, o ESP32 reinicia e o LED onboard começará a piscar, confirmando a atualização OTA e a execução do novo firmware com tarefas FreeRTOS.
+Este firmware representa a versão "atualizada" do sistema. Ele introduz o uso de FreeRTOS para demonstrar uma arquitetura mais escalável e robusta.
 
-   ![Resultado após upload](Images/blinking.gif)
+- Multitarefa com FreeRTOS:
+  - `WebServerTask`: Uma tarefa dedicada exclusivamente a gerenciar as requisições do servidor web (`server.handleClient()`).
+  - `LedBlinkTask`: Uma tarefa que roda em paralelo para piscar o LED onboard a cada segundo. Esta tarefa serve como uma comprovação visual de que o sistema está operante e que a atualização foi bem-sucedida, além de demonstrar que tarefas concorrentes não são bloqueadas pelas requisições de rede.
+- Funcionalidade do Servidor: O servidor web continua funcional, permitindo futuras atualizações.
 
-- O Serial Monitor exibirá mensagens de inicialização das tarefas LedBlinkTask e WebServerTask.
+### Fluxo da Atualização OTA
 
-## Conclusão
-O web updater é uma solução prática para atualizações OTA em redes locais. A integração de conceitos de RTOS** permitiu a criação de um sistema com bom gerenciamento de tarefas concorrentes - como o web server e o blink do LED. Para produção, recomenda-se fortalecer segurança e prever mecanismos de recuperação. O projeto apresentado é adequado como exercício acadêmico e protótipo funcional para entender o fluxo de OTA em ESP32.
+1.  O **Firmware A** é gravado no ESP32 via USB.
+2.  O dispositivo se conecta ao Wi-Fi e inicia o servidor web.
+3.  O usuário acessa o endereço IP do ESP32 (ou `http://esp32.local`) em um navegador.
+4.  Após o login, o usuário faz o upload do arquivo `firmware.bin` compilado do **Firmware B**.
+5.  O endpoint `/update` recebe o arquivo em partes (`multipart/form-data`).
+6.  A API `Update.write()` grava os bytes recebidos na partição de memória reservada para OTA.
+7.  Ao final do upload, `Update.end()` finaliza o processo e `ESP.restart()` reinicia o dispositivo.
+8.  O bootloader do ESP32 verifica a nova imagem de firmware, a valida e a executa.
+9.  O **Firmware B** começa a rodar, e o LED começa a piscar.
+
+## Configuração e Uso
+
+### Instruções
+
+1.  Configure as Credenciais: Nos arquivos `src/main.cpp` de ambos os firmwares (`No blink` e `With Blink`), atualize as variáveis `ssid` e `password` com os dados da sua rede Wi-Fi.
+2.  Gere o Binário de Atualização: Compile o projeto "With Blink" para gerar o arquivo `firmware.bin` que será usado na atualização. No PlatformIO, o arquivo se encontra em `.pio/build/<environment>/firmware.bin` após uma compilação bem-sucedida.
+3.  Carregue o Firmware Inicial: Compile e carregue o projeto "No blink" para o ESP32 via cabo USB.
+4.  Obtenha o IP: Abra o Serial Monitor (baud rate 115200) para visualizar o endereço IP que o ESP32 recebeu da sua rede.
+5.  Acesse a Interface Web: No navegador, acesse `http://<IP_DO_ESP32>` ou `http://esp32.local`.
+6.  Faça o Login: Utilize as credenciais padrão: `admin` / `admin`.
+
+    ![Tela de login](Images/login.png)
+
+7.  Envie a Atualização: Na página de upload, selecione o arquivo `firmware.bin` (gerado no passo 2) e clique em "Update". Aguarde o progresso até 100%.
+
+    ![Tela de upload](Images/upload_file.png)
+    ![Fazendo upload](Images/uploading.gif)
+
+8.  Verifique o Resultado: Após o upload, o ESP32 reiniciará automaticamente. O LED onboard começará a piscar, confirmando que o **Firmware B** está em execução.
+
+## Resultados e Demonstração
+
+O procedimento de atualização foi realizado com sucesso. Após o envio do Firmware B através da interface web, o ESP32 reiniciou e passou a executar a nova versão do código, como evidenciado pelo LED piscante e pelas mensagens no monitor serial indicando a inicialização das tarefas FreeRTOS.
+
+Resultado visual após a atualização:
+
+![Resultado após upload](Images/blinking.gif)
+
+Link para vídeo demonstrativo:
+*(Opcional: Inserir link para o vídeo aqui)*
+
+## Considerações Finais
+
+O projeto demonstrou com sucesso a implementação de um sistema de atualização OTA para ESP32 utilizando um web updater. A solução é prática para ambientes de desenvolvimento, prototipagem e para produtos que operam em redes locais seguras.
+
+A adoção do FreeRTOS no firmware final ilustrou como estruturar uma aplicação embarcada para lidar com múltiplas tarefas de forma concorrente e não bloqueante, uma prática essencial para sistemas responsivos e escaláveis.
+
+Para aplicações em produção, recomenda-se fortalecer a segurança, implementando HTTPS (com certificados SSL), um sistema de autenticação mais robusto e, possivelmente, a assinatura de firmware para garantir a autenticidade e integridade das atualizações. Além disso, a utilização do sistema de partição dupla do ESP32 é fundamental para garantir um mecanismo de rollback em caso de falha na atualização.
 
 ## Referências
 
-- Códigos do projeto: ver caminhos indicados na seção "Localização dos códigos-fonte".
-- Documentação ESP32 Arduino: https://docs.espressif.com/projects/arduino-esp32/en/latest/
+- Códigos-fonte do projeto:
+  - Firmware com blink (FreeRTOS): `file:///home/gomes/Documents/embarcados/Embedded-Systems-Projects/Final Project/With Blink/src/main.cpp`
+  - Firmware sem blink: `file:///home/gomes/Documents/embarcados/Embedded-Systems-Projects/Final Project/No blink/src/main.cpp`
+- Documentação ESP32 para Arduino: https://docs.espressif.com/projects/arduino-esp32/en/latest/
 
 ## Autores
 
