@@ -96,7 +96,7 @@ O procedimento de atualização foi realizado com sucesso. Após o envio do Firm
 
 Resultado visual após a atualização:
 
-![Resultado após upload](file:///home/gomes/Documents/embarcados/Embedded-Systems-Projects/Final%20Project/Images/blinking.gif)
+![Resultado após upload](https://github.com/314gomes/Embedded-Systems-Projects/blob/main/Final%20Project/Images/blinking.gif)
 
 ## Considerações Finais
 
