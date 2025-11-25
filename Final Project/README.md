@@ -81,14 +81,14 @@ Este firmware representa a versão "atualizada" do sistema. Ele introduz o uso d
 5.  Acesse a Interface Web: No navegador, acesse `http://<IP_DO_ESP32>` ou `http://esp32.local`.
 6.  Faça o Login: Utilize as credenciais padrão: `admin` / `admin`.
 
-![Tela de login](<img width="437" height="184" alt="login" src="https://github.com/user-attachments/assets/ec44a997-c705-4044-b633-45a08f31a5f4" />)
+![Tela de login](https://github.com/user-attachments/assets/ec44a997-c705-4044-b633-45a08f31a5f4)
 
 
 7.  Envie a Atualização: Na página de upload, selecione o arquivo `firmware.bin` (gerado no passo 2) e clique em "Update". Aguarde o progresso até 100%.
 
 ![Tela de upload](https://github.com/user-attachments/assets/b2471ca2-db29-4a54-82ab-6074e19fac78)
     
-![Fazendo upload](Images/uploading.gif)
+![Fazendo upload](https://github.com/user-attachments/assets/67fa41a1-dd72-4973-93a8-6fe04b1f739a)
 
 9.  Verifique o Resultado: Após o upload, o ESP32 reiniciará automaticamente. O LED onboard começará a piscar, confirmando que o **Firmware B** está em execução.
 
