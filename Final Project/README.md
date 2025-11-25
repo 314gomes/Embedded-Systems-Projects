@@ -109,9 +109,7 @@ Para aplicações em produção, recomenda-se fortalecer a segurança, implement
 
 ## Referências
 
-- Códigos-fonte do projeto:
-  - Firmware com blink (FreeRTOS): `file:///home/gomes/Documents/embarcados/Embedded-Systems-Projects/Final Project/With Blink/src/main.cpp`
-  - Firmware sem blink: `file:///home/gomes/Documents/embarcados/Embedded-Systems-Projects/Final Project/No blink/src/main.cpp`
+- Os códigos-fonte completos do projeto estão disponíveis no repositório.
 - Documentação ESP32 para Arduino: https://docs.espressif.com/projects/arduino-esp32/en/latest/
 
 ## Autores
