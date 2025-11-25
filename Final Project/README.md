@@ -116,12 +116,6 @@ Para aplicações em produção, recomenda-se fortalecer a segurança, implement
   - Firmware sem blink: `file:///home/gomes/Documents/embarcados/Embedded-Systems-Projects/Final Project/No blink/src/main.cpp`
 - Documentação ESP32 para Arduino: https://docs.espressif.com/projects/arduino-esp32/en/latest/
 
-
-## Teste aleatório de sanidade:
-
-<img width="256" height="256" alt="pqpgithub" src="https://github.com/user-attachments/assets/63b06929-37e2-4773-a78c-5fc5e8cf52a1" />
-
-
 ## Autores
 
 | Nome                        | NUSP     |
