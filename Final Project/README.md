@@ -49,7 +49,13 @@ Este relatório descreve um projeto de atualização remota de firmware (OTA) pa
    - O arquivo `.bin` gerado estará na mesma pasta do sketch.
 4. No dispositivo rodando o firmware inicial, abra o Serial Monitor (115200 baud) para obter o IP do ESP32.
 5. No navegador, acesse `http://<IP_DO_ESP32>` e efetue o login (admin/admin por padrão).
+
+   ![Tela de login](Images/login.png)
+   
 6. Na página de upload, selecione o `.bin` gerado e clique em Update. Aguarde o progresso até 100% e o reinício do ESP32.
+   ![Tela de upload](Images/upload_file.png)
+
+   ![Fazendo upload](Images/uploading.gif)
 
 ## Boas práticas e observações
 
@@ -61,6 +67,9 @@ Este relatório descreve um projeto de atualização remota de firmware (OTA) pa
 ## Resultados Esperados
 
 - Após o upload do Firmware B ser bem-sucedido, o ESP32 reinicia e o LED onboard começará a piscar, confirmando a atualização OTA e a execução do novo firmware com tarefas FreeRTOS.
+
+   ![Resultado após upload](Images/blinking.gif)
+
 - O Serial Monitor exibirá mensagens de inicialização das tarefas LedBlinkTask e WebServerTask.
 
 ## Conclusão
