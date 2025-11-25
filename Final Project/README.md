@@ -96,7 +96,7 @@ O procedimento de atualização foi realizado com sucesso. Após o envio do Firm
 
 Resultado visual após a atualização:
 
-![Resultado após upload](Images/blinking.gif)
+![Resultado após upload](https://github.com/user-attachments/assets/dfcec52f-8088-41e6-bc63-07be67c6acfe)
 
 
 ## Considerações Finais
