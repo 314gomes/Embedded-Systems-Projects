@@ -86,7 +86,7 @@ Este firmware representa a versão "atualizada" do sistema. Ele introduz o uso d
 
 7.  Envie a Atualização: Na página de upload, selecione o arquivo `firmware.bin` (gerado no passo 2) e clique em "Update". Aguarde o progresso até 100%.
 
-![Tela de upload]("https://github.com/user-attachments/assets/00b29dac-5aef-481c-9ff6-b9b6beeb05f2")
+![Tela de upload](https://github.com/user-attachments/assets/b2471ca2-db29-4a54-82ab-6074e19fac78)
     
 ![Fazendo upload](Images/uploading.gif)
 
