@@ -24,11 +24,11 @@ Para demonstrar uma arquitetura robusta e comum em sistemas embarcados complexos
 - IDE: PlatformIO com Visual Studio Code.
 - Framework: Arduino para ESP32.
 - Bibliotecas Principais:
-  - `WiFi.h`: Para conectividade com a rede Wi-Fi.
+  - `WiFi.h`: Para conectividade com a rede Wi-Fi. [Documentação](https://docs.espressif.com/projects/arduino-esp32/en/latest/api/wifi.html)
   - `WebServer.h`: Para a criação do servidor HTTP que hospeda a interface de atualização.
   - `ESPmDNS.h`: Para resolução de nome local (`http://<ip do microcontrolador>`), facilitando o acesso ao dispositivo.
-  - `Update.h`: API nativa do ESP32 para realizar o processo de gravação do novo firmware na memória flash.
-  - FreeRTOS: Sistema operacional de tempo real (integrado ao core do ESP32 para Arduino) utilizado para gerenciamento de tarefas concorrentes.
+  - `Update.h`: API nativa do ESP32 para realizar o processo de gravação do novo firmware na memória flash. [Documentação](https://docs.espressif.com/projects/arduino-esp32/en/latest/ota_web_update.html)
+  - FreeRTOS: Sistema operacional de tempo real (integrado ao core do ESP32 para Arduino) utilizado para gerenciamento de tarefas concorrentes. [Documentação](https://docs.espressif.com/projects/esp-idf/en/latest/esp32/api-reference/system/freertos.html)
 
 ## Esquema de Ligação
 
